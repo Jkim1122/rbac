@@ -1,0 +1,6 @@
+<h2>Login</h2>
+<form method="POST">  <!-- using POST method because it's more secure than GET -->
+    {% csrf_token %}  <!-- Cross-Site Request Forgery token helps to protect against attacks -->
+    {{ form.as_p }}   <!-- Renders form fields as '<p>' elements -->
+    <button type="submit">Login</button>
+</form>
