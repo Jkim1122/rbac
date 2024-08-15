@@ -6,16 +6,24 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 def home(request):
     return render(request, 'home.html')
 
-#Signup View:
+#Signup Views:
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('signup_success')
+        else:
+            return redirect('signup_failure')
     else:
         form = UserCreationForm()
     return render(request, 'accounts/signup.html', {'form':form})
+
+def signup_success(request):
+    return render(request, 'accounts/signup_success.html')
+
+def signup_failure(request):
+    return render(request, 'accounts/signup_failure.html')
 
 #Login View:
 def login_view(request):
