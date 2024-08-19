@@ -1,24 +1,38 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import CustomUserCreationForm
 
 #Home View
 def home(request):
     return render(request, 'home.html')
 
 #Signup Views:
+# def signup(request):
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('signup_success')
+#         else:
+#             return redirect('signup_failure')
+#     else:
+#         form = UserCreationForm()
+#     return render(request, 'accounts/signup.html', {'form':form})
+
+#Signup View Using Custom Form:
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('signup_success')
         else:
             return redirect('signup_failure')
     else:
-        form = UserCreationForm()
-    return render(request, 'accounts/signup.html', {'form':form})
+        form = CustomUserCreationForm()
+    return render(request, 'accounts/signup.html', {'form': form})
 
 def signup_success(request):
     return render(request, 'accounts/signup_success.html')
