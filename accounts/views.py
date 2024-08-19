@@ -8,19 +8,6 @@ from .forms import CustomUserCreationForm
 def home(request):
     return render(request, 'home.html')
 
-#Signup Views:
-# def signup(request):
-#     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('signup_success')
-#         else:
-#             return redirect('signup_failure')
-#     else:
-#         form = UserCreationForm()
-#     return render(request, 'accounts/signup.html', {'form':form})
-
 #Signup View Using Custom Form:
 def signup(request):
     if request.method == 'POST':
