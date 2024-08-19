@@ -1,4 +1,27 @@
-<h2>Signup Failed</h2>
-<p>There was a problem with creating your account.</p>
-<p>Please check your information and try again.</p>
-<a href="{% url 'signup' %}">Click here to try again</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Failed</title>
+</head>
+<body>
+    <h2>Signup Failed</h2>
+
+    <p>There was a problem with your signup. Please check the following issues:</p>
+
+    <ul>
+        {% for field, errors in form.errors.items %}  <!-- Iterate over errors and display them -->
+            <li>{{ field }}: 
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="{% url 'signup' %}">Try Again</a></p>
+</body>
+</html>

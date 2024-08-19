@@ -16,7 +16,8 @@ def signup(request):
             form.save()
             return redirect('signup_success')
         else:
-            return redirect('signup_failure')
+            # pass errors along to the failure page
+            return render(request, 'accounts/signup_failure.html', {'form': form})
     else:
         form = CustomUserCreationForm()
     return render(request, 'accounts/signup.html', {'form': form})
