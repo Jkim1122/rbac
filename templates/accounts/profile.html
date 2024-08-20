@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}  <!-- Load static files -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Welcome, {{ user.username }}!</h1>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Welcome, {{ user.username }}!</h1>
+            <p>We're glad to have you here!</p>
+        </div>
 
-    <div>
-        <h2>Your Profile Information</h2>
-        <p>Email: {{ user.email }}</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.</p>
-    </div>
+        <div class="profile-content">
+            <div class="profile-picture">
+                <!-- Placeholder for a profile picture -->
+                <img src="{% static 'images/default-profile.png' %}" alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+                <h2>Your Profile Information</h2>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Member Since:</strong> {{ user.date_joined }}</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.</p>
+            </div>
+        </div>
 
-    <div>
-        <form method="POST" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
+        <div class="profile-actions">
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn">Logout</button>
+            </form>
+            <a href="{% url 'password_change' %}" class="btn">Change Password</a>
+            <a href="#" class="btn">Edit Profile</a>
+        </div>
     </div>
 </body>
 </html>
