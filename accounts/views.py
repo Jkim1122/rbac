@@ -45,7 +45,20 @@ def login_view(request):
 
 @login_required
 def profile(request):
-    return render(request, 'accounts/profile.html', {'user': request.user})
+    # Check if the user is in specific groups
+    is_admin= request.user.groups.filter(name='Admin').exists()    
+    is_moderator= request.user.groups.filter(name='Moderator').exists()
+    is_user= request.user.groups.filter(name='User').exists()
+    is_guest= request.user.groups.filter(name='Guest').exists()
+    
+    context = {
+        'is_admin': is_admin,    
+        'is_moderator': is_moderator,
+        'is_user': is_user,
+        'is_guest': is_guest,
+    }
+        
+    return render(request, 'accounts/profile.html', context)
             
 #Logout View:
 def logout_view(request):
