@@ -43,6 +43,7 @@ media/
 staticfiles/
 *.migrations/
 *.bak
+__pycache__/
 
 # Django secret key
 .env
@@ -134,6 +135,7 @@ dmypy.json
 
 # VSCode specific
 .vscode/
+*.code-workspace
 
 # Python language server
 .pylint.d/
@@ -141,3 +143,14 @@ dmypy.json
 # PyCharm
 *.iml
 .idea/
+
+# SQLite database files
+*.db
+*.sqlite3
+db.sqlite3
+
+# PyInstaller
+*.spec
+
+# Python language server
+.pylint.d/
