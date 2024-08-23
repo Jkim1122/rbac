@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, EditProfileForm, EditProfileBioForm
+from .models import Profile
 
 #Home View
 def home(request):
@@ -54,6 +55,30 @@ def profile(request):
         'is_user': is_user,
     }
     return render(request, 'accounts/profile.html', context)
+
+# Edit Profile Views
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        user_form = EditProfileForm(request.POST, instance=request.user)
+        profile_form = EditProfileBioForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            # Ensure the bio field is not NULL
+            profile = profile_form.save(commit=False)
+            if profile.bio is None:
+                profile.bio = ""
+            profile.save()
+            return redirect('profile')
+    else:
+        user_form = EditProfileForm(instance=request.user)
+        profile_form = EditProfileBioForm(instance=request.user.profile)
+
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+    }
+    return render(request, 'accounts/edit_profile.html', context)
             
 #Logout View:
 def logout_view(request):
