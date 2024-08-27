@@ -10,6 +10,16 @@
 <body>
     <div class="container">
         <h2>Login</h2>
+
+        <!-- Display form errors -->
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <form method="POST">
             {% csrf_token %}   <!-- Cross-Site Request Forgery token helps to protect against attacks -->
             <div class="form-group">

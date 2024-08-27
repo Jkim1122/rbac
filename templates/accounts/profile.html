@@ -28,6 +28,30 @@
         </div>
 
         <div class="profile-actions">
+            <!-- Conditional Content Based on Role -->
+            {% if is_admin %}
+                <div class="admin-content">
+                    <h3>Admin Panel</h3>
+                    <p>You have administrative access.</p>
+                    <a href="#" class="btn">Manage Users</a>
+                    <a href="#" class="btn">Manage Content</a>
+                </div>
+            {% elif is_user %}
+                <div class="user-content">
+                    <h3>User Dashboard</h3>
+                    <p>Welcome, valued user! Here are your options:</p>
+                    <a href="#" class="btn">View Your Data</a>
+                    <a href="#" class="btn">Update Preferences</a>
+                </div>
+            {% else %}
+                <div class="guest-content">
+                    <h3>Guest Access</h3>
+                    <p>You have limited access. Please sign up to enjoy full features.</p>
+                    <a href="{% url 'signup' %}" class="btn">Sign Up</a>
+                </div>
+            {% endif %}
+
+            <!-- Common Actions for All Users -->
             <form method="POST" action="{% url 'logout' %}">
                 {% csrf_token %}
                 <button type="submit" class="btn">Logout</button>
