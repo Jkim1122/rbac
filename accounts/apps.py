@@ -22,13 +22,9 @@ class AccountsConfig(AppConfig):
 
         # Create or get the Admin group
         admin_group, _ = Group.objects.get_or_create(name='Admin')
-
-        # MODERATOR GROUP PLACEHOLDER ############################
-
-        # Create or get the User group
+        moderator_group, _ = Group.objects.get_or_create(name='Moderator') # ADDED BY JOSH
         user_group, _ = Group.objects.get_or_create(name='User')
-
-        # GUEST GROUP PLACEHOLDER ############################
+        guest_group, _ = Group.objects.get_or_create(name='Guest')  # ADDED BY JOSH
 
         # Define permissions for the Admin group
         admin_permissions = [
@@ -43,11 +39,17 @@ class AccountsConfig(AppConfig):
         # Assign permissions to the Admin group
         self.assign_permissions(admin_group, admin_permissions, user_content_type, Permission)
 
-        # MODERATOR GROUP PLACEHOLDER ############################
+        # Define permissions for the Moderator group
+        moderator_permissions = [       # ADDED BY JOSH
+            'view_user', 'change_user', # Moderators can view and edit user details but cannot delete
+            # Add other relevant permissions for Moderators here.
+        ]
+        # Assign permissions to the Moderator group
+        self.assign_permissions(moderator_group, moderator_permissions, user_content_type, Permission)
 
         # Define permissions for the User group (typically limited to managing their own data)
         user_permissions = [
-            'view_user',
+            'view_user', 'change_user'
             # Add other relevant permissions for Users here.
             # These will be dependent on the actual use case which has not yet been defined.
         ]
@@ -55,13 +57,19 @@ class AccountsConfig(AppConfig):
         # Assign permissions to the User group
         self.assign_permissions(user_group, user_permissions, user_content_type, Permission)
 
-        # GUEST GROUP PLACEHOLDER ############################
-
+        # Define permissions for the Guest group
+        guest_permissions = [   # ADDED BY JOSH
+            'view_user',  # Guests may only be allowed to view users but not make any changes
+            # Add other relevant permissions for Guests here.
+        ]
+        # Assign permissions to the Guest group
+        self.assign_permissions(guest_group, guest_permissions, user_content_type, Permission)
+        
         # Save the groups after assigning permissions
         admin_group.save()
-        # moderator_group.save()
+        moderator_group.save()
         user_group.save()
-        # guest_group.save()
+        guest_group.save()
 
     def assign_permissions(self, group, permissions_list, content_type, Permission):
         """
@@ -75,3 +83,4 @@ class AccountsConfig(AppConfig):
                 group.permissions.add(permission)
             except Permission.DoesNotExist:
                 print(f"Permission '{perm}' does not exist for content type '{content_type}'.")
+                

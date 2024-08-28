@@ -24,9 +24,7 @@ parts/
 sdist/
 wheels/
 share/python-wheels/
-*.egg-info/
 .installed.cfg
-*.egg
 MANIFEST
 
 # Django stuff:
@@ -42,7 +40,6 @@ db.sqlite3
 media/
 staticfiles/
 *.migrations/
-*.bak
 __pycache__/
 
 # Django secret key
@@ -57,7 +54,6 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
-*.py,cover
 .hypothesis/
 .tox/
 .pytest_cache/
@@ -74,8 +70,6 @@ compressor/
 docs/_build/
 
 # PyInstaller
-# Usually these files are written by a python script from a template
-# before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
 
