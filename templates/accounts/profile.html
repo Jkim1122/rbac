@@ -23,7 +23,7 @@
                 <h2>Your Profile Information</h2>
                 <p><strong>Email:</strong> {{ user.email }}</p>
                 <p><strong>Member Since:</strong> {{ user.date_joined }}</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.</p>
+                <p>{{ user.profile.bio }}</p> <!-- Changed to use actual bio instead of placeholder text -->
             </div>
         </div>
 
@@ -36,6 +36,12 @@
                     <a href="#" class="btn">Manage Users</a>
                     <a href="#" class="btn">Manage Content</a>
                 </div>
+            {% elif is_moderator %}
+                <div class="moderator-content">
+                    <h3>Moderator Panel</h3>
+                    <p>You have moderator access.</p>
+                    <a href="#" class="btn">Manage Content</a>
+                </div>
             {% elif is_user %}
                 <div class="user-content">
                     <h3>User Dashboard</h3>
@@ -43,7 +49,7 @@
                     <a href="#" class="btn">View Your Data</a>
                     <a href="#" class="btn">Update Preferences</a>
                 </div>
-            {% else %}
+            {% elif is_guest %}
                 <div class="guest-content">
                     <h3>Guest Access</h3>
                     <p>You have limited access. Please sign up to enjoy full features.</p>
